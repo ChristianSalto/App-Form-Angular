@@ -1,1 +1,77 @@
-<p>dinamicos works!</p>
+<h2>Reactivos: <small>Dinamico</small></h2>
+
+<form (ngSubmit)="handleOnSubmit()" autocomplete="off" [formGroup]="myForm">
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Nombre</label>
+    <div class="col-sm-9">
+      <input
+        class="form-control"
+        placeholder="Nombre de la persona"
+        formControlName="name"
+        type="text"
+      />
+      <span class="form-text text-danger" *ngIf="isValidName('name')"
+        >Este campo debe ser obligatorio y tener mas de 3 letras</span
+      >
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Agregar</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input
+          class="form-control"
+          [formControl]="newFavorite"
+          placeholder="Agregar favorito"
+          (keyup.enter)="addFavorite()"
+        />
+        <button type="button" class="btn btn-outline-primary" (click)="addFavorite()">Agregar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Favoritos</label>
+    <!--
+
+    -->
+    <div class="col-sm-9" formArrayName="favorite">
+      <div
+        class="input-group mb-1"
+        *ngFor="let item of favoriteArray.controls; let i = index"
+      >
+        <input class="form-control" [formControlName]="i" />
+        <button type="button" class="btn btn-outline-danger" (click)="removeFavorite(i)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-primary float-end" type="submit">Guardar</button>
+    </div>
+  </div>
+</form>
+
+<div class="row">
+  <div class="col">
+    <span>Valid</span>
+    <pre>{{ myForm.valid }}</pre>
+
+    <span>Pristine</span>
+    <pre>{{ myForm.pristine }}</pre>
+
+    <span>Touched</span>
+    <pre>{{ myForm.touched | json }}</pre>
+
+    <span>Value</span>
+    <pre>{{ myForm.value | json }}</pre>
+
+    <span>Agregar Juego</span>
+    <pre>{{ newFavorite.valid }}</pre>
+    <pre>{{ newFavorite.value | json }}</pre>
+  </div>
+</div>
+<!--
+-->
