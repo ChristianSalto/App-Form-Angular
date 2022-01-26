@@ -13,6 +13,11 @@ const routes: Routes = [
       import('../app/template/template.module').then((m) => m.TemplateModule),
   },
   {
+    path: 'auth',
+    loadChildren: () =>
+      import('../app/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: '**',
     redirectTo: 'template',
   },
